@@ -3,7 +3,6 @@ from huggingface_hub import login
 from datasets import load_dataset
 from sentence_transformers.losses import CosineSimilarityLoss
 import torch
-# from trainer.evaluator import dev_evaluator
 
 import os
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
@@ -17,13 +16,13 @@ def print_gpu_memory():
 
 print_gpu_memory()
 
-model_name = "NovaSearch/stella_en_1.5B_v5"
-base="stella_en_1.5B_v5"
+model_name = "Alibaba-NLP/gte-large-en-v1.5"
+base="gte-large-en-v1.5"
 
 output_dir =  f".models/finetuned--{base}"
 
 # Training arguments
-num_epochs = 1
+num_epochs = 3
 batch_size = 4
 lr = 2e-5
 
@@ -36,14 +35,14 @@ train_args = SentenceTransformerTrainingArguments(
     learning_rate=lr,
     warmup_ratio=0.1,
     eval_strategy="steps",
-    eval_steps=50,
+    eval_steps=150,
     logging_steps=10,
     save_strategy="steps",
-    save_steps=50,
+    save_steps=150,
     seed=42,
     save_total_limit = 1,
     logging_dir=f"{output_dir}/logs",
-    dataloader_num_workers=0
+    # dataloader_num_workers=0
 )
 
 # Dataset
@@ -69,7 +68,7 @@ trainer = SentenceTransformerTrainer(
     # evaluator=dev_evaluator,
 )
 
-checkpoint_dir=f"{output_dir}/checkpoint-100"
+# checkpoint_dir=f"{output_dir}/checkpoint-200"
 checkpoint_dir=None
 
 trainer.train(resume_from_checkpoint=checkpoint_dir)
