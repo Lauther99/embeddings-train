@@ -1,0 +1,14 @@
+services:
+  vllm:
+    build: .
+    container_name: vllm_qwen
+    ports:
+      - "8001:8001"  # Ajusta el puerto según necesidad
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: always
