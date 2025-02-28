@@ -1,9 +1,10 @@
 services:
-  vllm:
-    build: .
+  vllm_qwen:
+    image: 0a4e266f3780
     container_name: vllm_qwen
     ports:
-      - "8001:8001"  # Ajusta el puerto según necesidad
+      - "8001:8001"
+    command: ["vllm", "serve", "unsloth/Qwen2.5-Coder-32B-Instruct-bnb-4bit", "--dtype", "auto", "--task", "generate", "--quantization", "bitsandbytes", "--load-format", "bitsandbytes", "--port", "8001"]
     deploy:
       resources:
         reservations:
@@ -12,3 +13,12 @@ services:
               count: all
               capabilities: [gpu]
     restart: always
+    volumes:
+      - /home/azureuser/projects/deploy/qwen_coder/models:/root/.cache/huggingface
+      - ./logs:/app/logs
+      - /dev/shm:/dev/shm
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3" 

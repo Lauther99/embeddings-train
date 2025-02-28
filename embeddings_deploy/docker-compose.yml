@@ -1,9 +1,10 @@
 services:
-  vllm:
-    build: .
+  vllm_embed:
+    image: 0a4e266f3780
     container_name: vllm_embed
     ports:
-      - "8000:8000"  # Ajusta el puerto según necesidad
+      - "8000:8000"
+    command: ["vllm", "serve", "Lauther/measuring-embeddings-v3", "--dtype", "auto", "--task", "embed", "--max-num-batched-tokens", "700", "--port", "8000"]
     deploy:
       resources:
         reservations:
@@ -12,3 +13,12 @@ services:
               count: all
               capabilities: [gpu]
     restart: always
+    volumes:
+      - /home/azureuser/projects/deploy/embeddings_deploy/models:/root/.cache/huggingface
+      - ./logs:/app/logs
+      - /dev/shm:/dev/shm
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3" 

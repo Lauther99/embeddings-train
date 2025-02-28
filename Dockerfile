@@ -10,12 +10,15 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Instalar vLLM
-RUN pip install --no-cache-dir vllm
+RUN pip install --no-cache-dir vllm bitsandbytes
 
 # Comando por defecto para ejecutar el servicio
-CMD ["vllm", "serve", "Lauther/emb-multilingual-e5-large-instruct-3e", "--dtype", "auto", "--api-key", "", "--task", "embed"]
+# CMD ["vllm", "serve", "unsloth/Qwen2.5-Coder-32B-Instruct-bnb-4bit", "--dtype", "auto", "--task", "generate", "--quantization", "bitsandbytes", "--load-format", "bitsandbytes", "--port", "8001"]
 
 
 # sudo docker-compose build
 # sudo docker-compose up -d
+
+# sudo docker logs -f vllm_qwen
 # sudo docker logs -f vllm_embed
+
