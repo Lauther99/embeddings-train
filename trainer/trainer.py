@@ -1,7 +1,7 @@
 from sentence_transformers import SentenceTransformerTrainingArguments, SentenceTransformer, SentenceTransformerTrainer
 from huggingface_hub import login
 from datasets import load_dataset
-from sentence_transformers.losses import CosineSimilarityLoss
+from sentence_transformers.losses import CosineSimilarityLoss, CoSENTLoss
 import torch
 
 import os
@@ -54,7 +54,7 @@ eval_dataset = dataset["test"]
 model = SentenceTransformer(model_name, device="cuda", trust_remote_code=True)
 
 # Loss function
-loss = CosineSimilarityLoss(model)
+loss = CoSENTLoss(model)
 
 print_gpu_memory()
 
