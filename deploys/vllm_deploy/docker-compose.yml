@@ -1,0 +1,26 @@
+services:
+  vllm_embed:
+    build: .
+    container_name: vllm_embed
+    ports:
+      - "8000:8000"
+    command: ["vllm", "serve", "Lauther/measuring-embeddings-v4.2", "--dtype", "auto", "--task", "embed", "--max-num-batched-tokens", "700", "--port", "8000"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # restart: always
+    runtime: nvidia # si tiene gpu
+    environment: # si tiene gpu
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - C:/Users/Lauther/Desktop/embeddings_model/model:/root/.cache/huggingface
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3" 
+  

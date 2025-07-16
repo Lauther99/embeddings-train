@@ -12,13 +12,8 @@ WORKDIR /app
 # Instalar vLLM
 RUN pip install --no-cache-dir vllm bitsandbytes
 
-# Comando por defecto para ejecutar el servicio
-# CMD ["vllm", "serve", "unsloth/Qwen2.5-Coder-32B-Instruct-bnb-4bit", "--dtype", "auto", "--task", "generate", "--quantization", "bitsandbytes", "--load-format", "bitsandbytes", "--port", "8001"]
-
-
 # sudo docker-compose build
 # sudo docker-compose up -d
 
-# sudo docker logs -f vllm_qwen
+# sudo dock er logs -f vllm_qwen
 # sudo docker logs -f vllm_embed
-

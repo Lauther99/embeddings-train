@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  embeddings-server-1:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.7
+    container_name: d4-embeddings-v1.0
+    ports:
+      - "8800:80"
+    environment:
+      MODEL_ID: Lauther/d4-embeddings-v1.0
+      QUANTIZE: int8
+      DEVICE: cpu
+    volumes:
+      - C:/Users/Lauther/Desktop/embeddings_model/.model:/root/.cache/huggingface
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: "4g"
+
+  embeddings-server-2:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.7
+    container_name: d4-embeddings-v2.0
+    ports:
+      - "8801:80"
+    environment:
+      MODEL_ID: Lauther/d4-embeddings-v2.0
+      QUANTIZE: int8
+      DEVICE: cpu
+    volumes:
+      - C:/Users/Lauther/Desktop/embeddings_model/.model:/root/.cache/huggingface
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: "4g"
