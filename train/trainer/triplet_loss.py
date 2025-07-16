@@ -45,7 +45,7 @@ triplet_loss_loss = TripletLoss(model, distance_metric=TripletDistanceMetric.COS
 print_gpu_memory()
 
 # Train
-# Training arguments
+# Training argument
 base="d4-embeddings-v1.0-TripletLoss"
 output_dir =  f"../../.models/finetuned--{base}"
 log_dir = f"{output_dir}/logs"
