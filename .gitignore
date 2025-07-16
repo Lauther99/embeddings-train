@@ -1,4 +1,9 @@
-.env
+.models
+.model
 venv
-models
-logs
+.env
+
+test
+
+ngrok.exe
+
