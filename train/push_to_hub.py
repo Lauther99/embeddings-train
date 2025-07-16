@@ -5,12 +5,12 @@ from sentence_transformers.losses import CosineSimilarityLoss, CoSENTLoss
 import torch
 
 
-model_name = "/home/azureuser/projects/embeddings-train/.models/finetuned--measuring-embeddings-v5.3/checkpoint-1120"
+model_name = "/home/azureuser/projects/embeddings-train/.models/finetuned--d4-embeddings-v1.0-ContrastiveLoss/checkpoint-580"
 
 model = SentenceTransformer(model_name, device="cuda", trust_remote_code=True)
 
 # Push to hub
-login(token="xxx")
+login(token="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")
 
-hub_name=f"measuring-embeddings-v5.1"
+hub_name=f"d4-embeddings-v2.0"
 model.push_to_hub(f"Lauther/{hub_name}")
